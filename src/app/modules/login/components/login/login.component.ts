@@ -5,6 +5,7 @@ import { Config } from '../../../../core/configs/apis.config';
 import { finalize } from 'rxjs';
 import { authService } from '../../../../core/services/user-service/auth-service.service';
 import { Router } from '@angular/router';
+import { OverlayLoaderService } from '../../../../core/services/overlay-loader/overlay-loader.service';
 
 @Component({
   selector: 'app-login',
@@ -14,11 +15,11 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
   constructor(private fb: NonNullableFormBuilder, private http: HttpService, private userService: authService,
-    private router: Router
-  ) { }
+    private router: Router, private overlayLoader : OverlayLoaderService
+  ) {
 
+  }
 
-  isLoadingLogin: boolean = false;
 
   loginForm: FormGroup<{
     username: FormControl<string>;
@@ -33,11 +34,11 @@ export class LoginComponent {
     if (this.loginForm.invalid) return
     const payload = { ...this.loginForm.value, email: 'assessment@parent.eu' }
 
-    //load spinner
-    this.isLoadingLogin = true
+    //start loader
+    this.overlayLoader.show()
 
     //send request
-    this.http.post(`${Config.auth.login}`, payload).pipe(finalize(() => { this.isLoadingLogin = false })
+    this.http.post(`${Config.auth.login}`, payload).pipe(finalize(() => {  this.overlayLoader.hide() })
     ).subscribe(
       {
         next: (res: any) => {
