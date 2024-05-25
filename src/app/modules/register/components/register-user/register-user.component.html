@@ -1,5 +1,5 @@
-<div class="login-container">
-  <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="login()">
+<div class="register-container">
+  <form nz-form [formGroup]="registerForm" class="register-form" (ngSubmit)="signUp()">
     <nz-form-item>
       <nz-form-control nzErrorTip="Please input your username!">
         <nz-input-group nzPrefixIcon="user">
@@ -7,6 +7,16 @@
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input valid email!">
+        <nz-input-group nzPrefixIcon="google">
+          <input type="text" nz-input formControlName="email" placeholder="Email" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+
     <nz-form-item>
       <nz-form-control nzErrorTip="Please input your Password!">
         <nz-input-group nzPrefixIcon="lock">
@@ -15,10 +25,9 @@
       </nz-form-control>
     </nz-form-item>
 
-    <button  nz-button class="login-form__button" [nzType]="'primary'">Log in</button>
-
-    Or
-    <a routerLink="/register">register now!</a>
+    <button  nz-button class="register-form__button" [nzType]="'primary'">Submit</button>
+    or
+    <a routerLink="/">Go to login</a>
   </form>
 
 </div>
