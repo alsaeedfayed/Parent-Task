@@ -1,14 +1,18 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { Injectable, OnInit } from '@angular/core';
+import { catchError, Observable, of, throwError } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { NotificationsService } from '../notifications/notifications.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HttpService {
+export class HttpService   {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient , private notificationService : NotificationsService) { }
+
+
 
   get<T>(url: string, params?: any, headers?: HttpHeaders): Observable<T | T[]> {
     const options = {
@@ -16,7 +20,14 @@ export class HttpService {
       headers: headers ? headers : new HttpHeaders()
     }
     return this.http.get<T | T[]>(this.getURL(url), options).pipe(
-      catchError(this.handleError)
+      catchError(
+        (error) : Observable<any> => {
+          return this.handleError(error)
+         // return of(1,2,3)
+        }
+
+
+      )
     );
   }
 
@@ -73,8 +84,8 @@ export class HttpService {
   }
 
 
-  //Handle errors funciton
-  private handleError(error : HttpErrorResponse){
+   //Handle errors funciton
+   private handleError(error : HttpErrorResponse){
     let errorMsg = "An error occurred: ";
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -84,9 +95,12 @@ export class HttpService {
       // The backend returned an unsuccessful response code.
         errorMsg = `Backend returned code ${error.message}`
     }
+    // this.createBasicNotificationn('error' , errorMsg)
+     this.notificationService.createBasicNotification('error' , 'Error' , errorMsg)
     // return an observable with a user-facing error message
     return throwError( errorMsg)
   }
+
 }
 
 
