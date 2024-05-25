@@ -102,11 +102,11 @@ export class HttpService {
     let errorMsg = "An error occurred: ";
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
-      errorMsg = 'An error occurred:', error.error.message;
+      errorMsg = 'An error occurred: ', error.error.message;
 
     } else {
       // The backend returned an unsuccessful response code.
-      errorMsg = `Backend returned code ${error.message}`
+      errorMsg = `Backend returned code :  ${error.error.error}`
     }
     // this.createBasicNotificationn('error' , errorMsg)
     this.notificationService.createBasicNotification('error', 'Error', errorMsg)
