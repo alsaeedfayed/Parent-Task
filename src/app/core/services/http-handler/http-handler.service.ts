@@ -8,9 +8,9 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 @Injectable({
   providedIn: 'root'
 })
-export class HttpService   {
+export class HttpService {
 
-  constructor(private http: HttpClient , private notificationService : NotificationsService) { }
+  constructor(private http: HttpClient, private notificationService: NotificationsService) { }
 
 
 
@@ -21,12 +21,9 @@ export class HttpService   {
     }
     return this.http.get<T | T[]>(this.getURL(url), options).pipe(
       catchError(
-        (error) : Observable<any> => {
+        (error): Observable<T> => {
           return this.handleError(error)
-         // return of(1,2,3)
         }
-
-
       )
     );
   }
@@ -37,7 +34,11 @@ export class HttpService   {
       headers: headers ? headers : new HttpHeaders()
     }
     return this.http.post<T>(this.getURL(url), body, options).pipe(
-      catchError(this.handleError)
+      catchError(
+        (error): Observable<T> => {
+          return this.handleError(error)
+        }
+      )
     );
   }
 
@@ -48,7 +49,11 @@ export class HttpService   {
       headers: headers ? headers : new HttpHeaders()
     }
     return this.http.post<T>(this.getURL(url), body, options).pipe(
-      catchError(this.handleError)
+      catchError(
+        (error): Observable<T> => {
+          return this.handleError(error)
+        }
+      )
     );
   }
 
@@ -59,7 +64,11 @@ export class HttpService   {
       headers: headers ? headers : new HttpHeaders()
     }
     return this.http.post<T>(this.getURL(url), body, options).pipe(
-      catchError(this.handleError)
+      catchError(
+        (error): Observable<T> => {
+          return this.handleError(error)
+        }
+      )
     );
   }
 
@@ -71,7 +80,11 @@ export class HttpService   {
       headers: headers ? headers : new HttpHeaders()
     }
     return this.http.get<T>(this.getURL(url), options).pipe(
-      catchError(this.handleError)
+      catchError(
+        (error): Observable<T> => {
+          return this.handleError(error)
+        }
+      )
     );
   }
 
@@ -84,8 +97,8 @@ export class HttpService   {
   }
 
 
-   //Handle errors funciton
-   private handleError(error : HttpErrorResponse){
+  //Handle errors funciton
+  private handleError(error: HttpErrorResponse) {
     let errorMsg = "An error occurred: ";
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -93,12 +106,12 @@ export class HttpService   {
 
     } else {
       // The backend returned an unsuccessful response code.
-        errorMsg = `Backend returned code ${error.message}`
+      errorMsg = `Backend returned code ${error.message}`
     }
     // this.createBasicNotificationn('error' , errorMsg)
-     this.notificationService.createBasicNotification('error' , 'Error' , errorMsg)
+    this.notificationService.createBasicNotification('error', 'Error', errorMsg)
     // return an observable with a user-facing error message
-    return throwError( errorMsg)
+    return throwError(errorMsg)
   }
 
 }

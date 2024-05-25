@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { HttpService } from '../../../../core/services/http-handler/http-handler.service';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@ang
 })
 export class LoginComponent {
 
-  constructor(private fb: NonNullableFormBuilder) { }
+  constructor(private fb: NonNullableFormBuilder , private http : HttpService) { }
 
   loginForm: FormGroup<{
     userName: FormControl<string>;
@@ -18,6 +19,17 @@ export class LoginComponent {
     password: ['', [Validators.required]],
   });
   submitForm(){
-    console.log(this.loginForm.value)
+    console.log(this.loginForm.value);
+    this.http.post('/login', this.loginForm.value).subscribe(
+      {
+        next : (data) => {
+          console.log(data);
+        },
+        error : (error) => {
+          console.log(error)
+        },
+        complete : () => {}
+      }
+    )
   }
 }
