@@ -1,0 +1,13 @@
+@import '../../../../../assets/scss/abstract/mixins';
+
+.login-container {
+  height: 50vh;
+  @include CenterItemVerticalAndHorizontal;
+  .login-form {
+    min-width: 40rem;
+    &__button {
+      width: 100%;
+      margin-bottom: 1.6rem;
+    }
+  }
+}
