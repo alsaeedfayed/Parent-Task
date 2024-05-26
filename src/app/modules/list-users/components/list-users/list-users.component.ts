@@ -16,9 +16,11 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 })
 export class ListUsersComponent implements OnInit {
 
+  //-------------------COMPONENT PROPERTIES----------------
   isEditMode: boolean = false;
   userToBeEdited!: User | null;
   userForm!: FormGroup;
+  users!: User[];
 
   constructor(private http: HttpService, private router: Router, private modalService: ModalService, private overlayService: OverlayLoaderService, private notificationService: NotificationsService , private modal: NzModalService) { }
 
@@ -26,7 +28,6 @@ export class ListUsersComponent implements OnInit {
     this.getAllUsers()
   }
 
-  users!: User[];
 
   //------------------GET ALL USERS -------------------------
   getAllUsers(): void {

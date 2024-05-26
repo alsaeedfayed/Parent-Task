@@ -22,6 +22,7 @@ export class RegisterUserComponent {
   }
 
 
+  //---------------------- BUILD FORM ------------------
   registerForm: FormGroup<{
     username: FormControl<string>;
     email: FormControl<string>;
@@ -32,8 +33,9 @@ export class RegisterUserComponent {
     password: ['', [Validators.required]],
   });
 
-  signUp() {
 
+  //---------------------- REGISTER ------------------------
+  signUp() {
     if (this.registerForm.invalid) return
     const payload = this.registerForm.value;
     //start loader

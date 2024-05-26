@@ -16,6 +16,7 @@ import { Subject } from 'rxjs';
 })
 export class ModalComponent implements OnInit , OnDestroy {
 
+  //------------------- COMPONENT PROPERTIES ----------------
   placement: NzDrawerPlacement = 'right';
   visible = false;
   modalTitle! : string;
@@ -23,6 +24,7 @@ export class ModalComponent implements OnInit , OnDestroy {
 
   constructor(private modalService : ModalService){}
    ngOnInit(): void {
+    //----------------- FIRE MODAL REAL TIME LISTENING TO BEHAVIOUR SUBJECT -----------------
     this.modalService.dataSubject$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data : modalProps) => {
       this.visible = data.visible;
       this.placement = data.placement;

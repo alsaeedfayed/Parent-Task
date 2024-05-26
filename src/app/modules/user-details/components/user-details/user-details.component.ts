@@ -16,13 +16,16 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute, private http: HttpService) { }
 
+  //---------------------COMPONENT PROPERTIES--------------------
   user!: User;
   private ngUnsubscribe = new Subject<void>();
+
   ngOnInit() {
     this.getUser();
   }
 
 
+  //---------------------- GET SINGLE USER------------------------
   getUser(): void {
     const userId = this.route.snapshot.paramMap.get('id');
     this.http.get<User>(`/users/${userId}`).pipe(map(
@@ -37,6 +40,9 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
 
   }
+
+
+  //---------------------- STOP LEADKING IN DESTROY LIFE CYCLE ---
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();

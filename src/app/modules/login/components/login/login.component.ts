@@ -21,6 +21,7 @@ export class LoginComponent {
   }
 
 
+  //---------------------- BUILD FORM ------------------
   loginForm: FormGroup<{
     username: FormControl<string>;
     password: FormControl<string>;
@@ -29,14 +30,14 @@ export class LoginComponent {
     password: ['', [Validators.required]],
   });
 
+
+  //---------------------- LOGIN ------------------------
   login() {
 
     if (this.loginForm.invalid) return
     const payload = { ...this.loginForm.value, email: 'assessment@parent.eu' }
-
     //start loader
     this.overlayLoader.show()
-
     //send request
     this.http.post(`${Config.auth.login}`, payload).pipe(finalize(() => {  this.overlayLoader.hide() })
     ).subscribe(
