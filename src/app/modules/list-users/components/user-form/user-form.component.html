@@ -1,0 +1,28 @@
+
+<form nz-form [formGroup]="userForm" class="add-user-form">
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your First Name!">
+      <nz-input-group >
+        <input type="text" nz-input formControlName="first_name" placeholder="first name" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your Last Name!">
+      <nz-input-group>
+        <input type="text" nz-input formControlName="last_name" placeholder="last name" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input valid Email!">
+      <nz-input-group >
+        <input type="email" nz-input formControlName="email" placeholder="email" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+</form>

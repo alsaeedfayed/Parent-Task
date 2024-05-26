@@ -20,6 +20,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     NzFormModule,
     NzInputModule,
     ReactiveFormsModule,
+  ],
+
+  exports :[
+    RegisterUserComponent
   ]
 })
 export class RegisterModule { }

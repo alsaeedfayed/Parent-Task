@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 export class RegisterUserComponent {
 
   constructor(private fb: NonNullableFormBuilder, private http: HttpService, private userService: authService,
-    private router: Router, private overlayLoader : OverlayLoaderService
+    private router: Router, private overlayLoader: OverlayLoaderService
   ) {
 
   }
@@ -41,7 +41,7 @@ export class RegisterUserComponent {
     console.log(payload)
 
     //send request
-    this.http.post(`${Config.auth.register}`, payload).pipe(finalize(() => {  this.overlayLoader.hide() })
+    this.http.post(`${Config.auth.register}`, payload).pipe(finalize(() => { this.overlayLoader.hide() })
     ).subscribe(
       {
         next: (res: any) => {

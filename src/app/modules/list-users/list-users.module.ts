@@ -7,10 +7,16 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ModalComponent } from '../../stand-alone-components/modal/modal.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { UserFormComponent } from './components/user-form/user-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzFormModule } from 'ng-zorro-antd/form';
 
 @NgModule({
   declarations: [
-    ListUsersComponent
+    ListUsersComponent,
+    UserFormComponent,
+
   ],
   imports: [
     CommonModule,
@@ -18,7 +24,12 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
     NzCardModule,
     NzIconModule,
     NzButtonModule,
-    ModalComponent
+    ModalComponent,
+    ReactiveFormsModule,
+    NzInputModule,
+    NzFormModule
+
+
   ]
 })
 export class ListUsersModule { }

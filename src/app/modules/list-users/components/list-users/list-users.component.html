@@ -1,4 +1,8 @@
 <div class="container">
+  <header class="header">
+    <div class="header__title">List of users</div>
+    <button (click)="openAddUserModal()" nz-button nzType="dashed" nzShape="circle"><span nz-icon nzType="plus"></span></button>
+  </header>
   <div class="users">
     <ng-container *ngFor="let user of users; let i = index">
       <nz-card class="users__card" nzHoverable [nzCover]="coverTemplate">
@@ -39,10 +43,14 @@
 <app-modal class="modal">
   <div nzDrawerContent>
     <!-- The dynamic component for the modal is here  -->
+    <app-user-form (formUser)="userFormListener($event)" [user]="userToBeEdited" ></app-user-form>
   </div>
 
   <div class="card-footer" footerTpl>
-    <button nz-button (click)="editUser()">Update</button>
+    <button  [disabled]="(userForm?.value && userForm.invalid) || !userForm" *ngIf="isEditMode ; else addMode" nz-button (click)="editUser()">Update</button>
     <button nz-button nzDanger (click)="close()">Cancel</button>
+    <ng-template #addMode>
+      <button [disabled]="(userForm?.value && userForm.invalid) || !userForm" nz-button (click)="addUser()">Add</button>
+    </ng-template>
   </div>
 </app-modal>

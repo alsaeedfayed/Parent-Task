@@ -22,7 +22,8 @@ registerLocaleData(en);
     AppRoutingModule,
     FormsModule,
     CommonModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

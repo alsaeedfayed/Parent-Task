@@ -1,28 +1,41 @@
-@import '../../../../../assets/scss/abstract/mixins';
-@import '../../../../../assets/scss/abstract/vairables';
+@import "../../../../../assets/scss/abstract/mixins";
+@import "../../../../../assets/scss/abstract/vairables";
 
-.users{
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-primary;
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+
+  &__title {
+    font-weight: 500;
+    color: #fff;
+    font-size: 1.8rem;
+  }
+}
+
+.users {
   @include CenterItemVerticalAndHorizontal;
   gap: 2rem;
 
-  &__card{
+  &__card {
     width: 27rem;
     position: relative;
-    &:hover{
-      .user-image{
-        opacity: .3;
+    &:hover {
+      .user-image {
+        opacity: 0.3;
       }
 
-
-      .actions{
+      .actions {
         top: 40%;
         opacity: 1;
       }
     }
   }
 
-
-  .actions{
+  .actions {
     @include CenterItemVerticalAndHorizontal;
     gap: 2rem;
     z-index: 5;
@@ -30,24 +43,22 @@
     top: 0%;
     opacity: 0;
     font-size: 2.3rem;
-    transition: all .5s ease-in-out;
-    &__view{
+    transition: all 0.5s ease-in-out;
+    &__view {
       color: $color-primary;
     }
 
-    &__edit{
+    &__edit {
       color: $color-success;
     }
 
-    &__delete{
+    &__delete {
       color: $color-error;
     }
   }
-
-
 }
 
-.card-footer{
+.card-footer {
   display: flex;
   justify-content: right;
   gap: 1rem;
