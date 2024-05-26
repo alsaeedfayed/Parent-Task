@@ -7,6 +7,7 @@ import { ModalService } from '../../../../core/services/modal/modal.service';
 import { FormGroup } from '@angular/forms';
 import { NotificationsService } from '../../../../core/services/notifications/notifications.service';
 import { OverlayLoaderService } from '../../../../core/services/overlay-loader/overlay-loader.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-list-users',
@@ -19,7 +20,7 @@ export class ListUsersComponent implements OnInit {
   userToBeEdited!: User | null;
   userForm!: FormGroup;
 
-  constructor(private http: HttpService, private router: Router, private modalService: ModalService, private overlayService: OverlayLoaderService, private notificationService: NotificationsService) { }
+  constructor(private http: HttpService, private router: Router, private modalService: ModalService, private overlayService: OverlayLoaderService, private notificationService: NotificationsService , private modal: NzModalService) { }
 
   ngOnInit(): void {
     this.getAllUsers()
@@ -27,11 +28,16 @@ export class ListUsersComponent implements OnInit {
 
   users!: User[];
 
+  //------------------GET ALL USERS -------------------------
   getAllUsers(): void {
+    this.overlayService.show()
     this.http.get<User[]>('/users').pipe(
+      finalize(() => {
+        this.overlayService.hide();
+      }),
       map(
         (res: any) => {
-          console.log(res)
+        //  console.log(res)
           return res?.data;
         })
 
@@ -41,27 +47,27 @@ export class ListUsersComponent implements OnInit {
     })
   }
 
-  //Navigate to specific user to see his details
+  //-----------------ROUTE TO SPECIFIC USER-------------------
   goToUser(id: number): void {
     this.router.navigate([`/user/${id}`])
   }
 
+
+  //TODO Provide end point for adding user internal.
   openAddUserModal() {
     this.modalService.openModal('right', 'Add New User')
   }
-
   addUser() {
-    //TODO Provide end point for adding user internal.
+
   }
 
 
+  //---------------------EDIT USER ----------------------
   openEditUserModal(user: User) {
     this.isEditMode = true;
     this.userToBeEdited = user;
     this.modalService.openModal('right', `Edit user ${user.first_name}`)
   }
-
-
   editUser() {
     this.overlayService.show()
     this.http.put(`/users/${this.userToBeEdited?.id}`, this.userForm.value).pipe(finalize(
@@ -80,15 +86,44 @@ export class ListUsersComponent implements OnInit {
       }
     )
   }
-
-
   userFormListener(form: FormGroup) {
     this.userForm = form
   }
+
+  //-------------------- CLOSE THE MODAL ---------------
   close() {
     this.modalService.closeModal('right', '');
     this.isEditMode = false;
     this.userToBeEdited = null;
   }
 
+
+  //---------------- DELETE USER ------------------------
+  showDeleteConfirm(user : User): void {
+    this.modal.confirm({
+      nzTitle: `Are you sure delete ${user.first_name}`,
+
+      nzOkText: 'Yes',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => this.deleteUser(user.id),
+      nzCancelText: 'No',
+      nzOnCancel: () => {}
+    });
+  }
+
+  deleteUser(id : number){
+    this.overlayService.show()
+    this.http.delete(`/users/${id}`).pipe(finalize(() => {
+      this.overlayService.hide();
+      this.getAllUsers();
+      this.notificationService.createBasicNotification('success', 'Success', 'user has been deleted')
+    })).subscribe(
+      {
+        next : (res) => {},
+        error : (err) => {}
+      },
+
+    )
+  }
 }

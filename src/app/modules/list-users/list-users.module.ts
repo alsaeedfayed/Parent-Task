@@ -11,6 +11,7 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 @NgModule({
   declarations: [
@@ -27,8 +28,8 @@ import { NzFormModule } from 'ng-zorro-antd/form';
     ModalComponent,
     ReactiveFormsModule,
     NzInputModule,
-    NzFormModule
-
+    NzFormModule,
+    NzModalModule
 
   ]
 })
