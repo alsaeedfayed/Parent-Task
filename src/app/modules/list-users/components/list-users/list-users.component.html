@@ -1,7 +1,7 @@
 <div class="container">
   <div class="list-users">
     <ng-container *ngFor="let user of users ; let i = index">
-      <nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate">
+      <nz-card (click)="goToUser(user.id)" nzHoverable style="width:240px" [nzCover]="coverTemplate">
         <nz-card-meta [nzTitle]="user.first_name +' ' + user.last_name" [nzDescription]="user.email"></nz-card-meta>
       </nz-card>
       <ng-template #coverTemplate>

@@ -20,8 +20,17 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    loadChildren: () => import('./modules/list-users/list-users.module').then(m => m.ListUsersModule)
-  }
+    loadChildren: () => import('./modules/list-users/list-users.module').then(m => m.ListUsersModule),
+
+  },
+
+  {
+    path: 'user/:id',
+    loadChildren: () => import('./modules/user-details/user-details.module').then(m => m.UserDetailsModule),
+
+  },
+
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../../../core/services/http-handler/http-handler.service';
 import { User } from '../../../../core/models/user.model';
 import { map } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-users',
@@ -10,7 +11,7 @@ import { map } from 'rxjs';
 })
 export class ListUsersComponent implements OnInit {
 
-  constructor(private http: HttpService) { }
+  constructor(private http: HttpService , private router : Router) { }
 
   ngOnInit(): void {
     this.getAllUsers()
@@ -30,5 +31,10 @@ export class ListUsersComponent implements OnInit {
       console.log(res)
       this.users = res;
     })
+  }
+
+  //Navigate to specific user to see his details
+  goToUser(id : number) : void {
+    this.router.navigate([`/user/${id}`])
   }
 }

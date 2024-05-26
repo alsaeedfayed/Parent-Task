@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="user-details">
+
+      <nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate">
+        <nz-card-meta nzTitle="User Details" class="card-header"></nz-card-meta>
+        <p>First Name : {{user?.first_name}}</p>
+        <p>Last Name : {{user?.last_name}}</p>
+        <p>Email : {{user?.email}}</p>
+      </nz-card>
+      <ng-template #coverTemplate>
+        <img  alt="user avatar" [attr.src]="user?.avatar" />
+      </ng-template>
+
+  </div>
+
+</div>
