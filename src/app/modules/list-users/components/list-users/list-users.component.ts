@@ -3,6 +3,7 @@ import { HttpService } from '../../../../core/services/http-handler/http-handler
 import { User } from '../../../../core/models/user.model';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
+import { ModalService } from '../../../../core/services/modal/modal.service';
 
 @Component({
   selector: 'app-list-users',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ListUsersComponent implements OnInit {
 
-  constructor(private http: HttpService , private router : Router) { }
+  constructor(private http: HttpService , private router : Router, private modalService : ModalService) { }
 
   ngOnInit(): void {
     this.getAllUsers()
@@ -37,4 +38,14 @@ export class ListUsersComponent implements OnInit {
   goToUser(id : number) : void {
     this.router.navigate([`/user/${id}`])
   }
+
+  openEditUserModal(user : User){
+    this.modalService.openModal('right' , `Edit user ${user.first_name}`)
+  }
+
+  close(){
+    this.modalService.closeModal('right' , '')
+  }
+
+  editUser(){}
 }

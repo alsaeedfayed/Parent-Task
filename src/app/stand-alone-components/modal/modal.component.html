@@ -1,0 +1,18 @@
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="visible"
+  [nzPlacement]="placement"
+  [nzTitle]="modalTitle"
+  (nzOnClose)="(!visible)"
+  [nzWidth]="500"
+  [nzFooter]="footerTpl"
+>
+  <ng-container *nzDrawerContent>
+    <!-- here we gonna put the dynamic component -->
+    <ng-content select="[nzDrawerContent]"></ng-content>
+  </ng-container>
+
+  <ng-template #footerTpl >
+    <ng-content select="[footerTpl]"></ng-content>
+  </ng-template>
+</nz-drawer>

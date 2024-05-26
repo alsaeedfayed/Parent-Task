@@ -5,7 +5,8 @@ import { ListUsersRoutingModule } from './list-users-routing.module';
 import { ListUsersComponent } from './components/list-users/list-users.component';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-
+import { ModalComponent } from '../../stand-alone-components/modal/modal.component';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,9 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     CommonModule,
     ListUsersRoutingModule,
     NzCardModule,
-    NzIconModule
+    NzIconModule,
+    NzButtonModule,
+    ModalComponent
   ]
 })
 export class ListUsersModule { }
