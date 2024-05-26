@@ -5,7 +5,8 @@ import { HttpService } from '../../../../core/services/http-handler/http-handler
 import { User } from '../../../../core/models/user.model';
 
 import { Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { finalize, map, takeUntil } from 'rxjs/operators';
+import { OverlayLoaderService } from '../../../../core/services/overlay-loader/overlay-loader.service';
 
 @Component({
   selector: 'app-user-details',
@@ -14,7 +15,7 @@ import { map, takeUntil } from 'rxjs/operators';
 })
 export class UserDetailsComponent implements OnInit, OnDestroy {
 
-  constructor(private route: ActivatedRoute, private http: HttpService) { }
+  constructor(private route: ActivatedRoute, private http: HttpService, private overlayService : OverlayLoaderService) { }
 
   //---------------------COMPONENT PROPERTIES--------------------
   user!: User;
@@ -27,13 +28,18 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   //---------------------- GET SINGLE USER------------------------
   getUser(): void {
+    this.overlayService.show();
     const userId = this.route.snapshot.paramMap.get('id');
     this.http.get<User>(`/users/${userId}`).pipe(map(
       (res: any) => {
         return res?.data;
       }),
       takeUntil(this.ngUnsubscribe
-      )).subscribe((user: User) => {
+      ),
+    finalize(() => {
+      this.overlayService.hide()
+    })
+    ).subscribe((user: User) => {
         this.user = user;
 
       })
