@@ -1,4 +1,48 @@
-.list-users{
-  display: flex;
+@import '../../../../../assets/scss/abstract/mixins';
+@import '../../../../../assets/scss/abstract/vairables';
+
+.users{
+  @include CenterItemVerticalAndHorizontal;
   gap: 2rem;
+
+  &__card{
+    width: 27rem;
+    position: relative;
+    &:hover{
+      .user-image{
+        opacity: .3;
+      }
+
+
+      .actions{
+        top: 40%;
+        opacity: 1;
+      }
+    }
+  }
+
+
+
+
+  .actions{
+    @include CenterItemVerticalAndHorizontal;
+    gap: 2rem;
+    z-index: 5;
+    position: absolute;
+    top: 0%;
+    opacity: 0;
+    font-size: 2.3rem;
+    transition: all .5s ease-in-out;
+    &__view{
+      color: $color-primary;
+    }
+
+    &__edit{
+      color: $color-success;
+    }
+
+    &__delete{
+      color: $color-error;
+    }
+  }
 }

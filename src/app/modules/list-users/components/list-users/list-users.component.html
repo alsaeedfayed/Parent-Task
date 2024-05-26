@@ -1,11 +1,17 @@
 <div class="container">
-  <div class="list-users">
+  <div class="users">
     <ng-container *ngFor="let user of users ; let i = index">
-      <nz-card (click)="goToUser(user.id)" nzHoverable style="width:240px" [nzCover]="coverTemplate">
+
+      <nz-card class="users__card"  nzHoverable  [nzCover]="coverTemplate">
         <nz-card-meta [nzTitle]="user.first_name +' ' + user.last_name" [nzDescription]="user.email"></nz-card-meta>
       </nz-card>
       <ng-template #coverTemplate>
-        <img  alt="user avatar" [attr.src]="user.avatar" />
+        <img class="user-image"  alt="user avatar" [attr.src]="user.avatar" />
+        <div class="actions">
+          <span (click)="goToUser(user.id)" class="actions__view" nz-icon nzType="eye" nzTheme="fill" ></span>
+          <span class="actions__edit" nz-icon nzType="edit" nzTheme="fill"></span>
+          <span class="actions__delete" nz-icon nzType="delete" nzTheme="fill"></span>
+        </div>
       </ng-template>
     </ng-container>
   </div>

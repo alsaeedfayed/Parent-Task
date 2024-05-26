@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="user-details">
+  <div class="user">
 
-      <nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate">
+      <nz-card nzHoverable class="user__card" [nzCover]="coverTemplate">
         <nz-card-meta nzTitle="User Details" class="card-header"></nz-card-meta>
         <p>First Name : {{user?.first_name}}</p>
         <p>Last Name : {{user?.last_name}}</p>

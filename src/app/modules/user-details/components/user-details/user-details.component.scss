@@ -1,3 +1,12 @@
-.card-header{
-  margin-bottom: 2rem;
+@import '../../../../../assets/scss/abstract/mixins';
+
+.user{
+  @include CenterItemVerticalAndHorizontal;
+  .card-header{
+    margin-bottom: 2rem;
+  }
+
+  &__card {
+    width: 40rem;
+  }
 }
