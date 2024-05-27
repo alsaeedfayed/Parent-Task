@@ -17,7 +17,7 @@ export class UnauthenticationGuard implements CanActivate {
       if (!this.authService.isAuthenticated()) {
         return true;
       } else {
-        this.router.navigate(['/users']);
+        this.router.navigate(['/login']);
         return false;
       }
   }
