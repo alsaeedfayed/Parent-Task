@@ -36,7 +36,17 @@ const routes: Routes = [
 
   },
 
-  { path: '**', redirectTo: '' }
+  {
+    path : 'not-authenticated',
+    loadComponent: () => import('./stand-alone-components/not-autherized/not-autherized.component').then(m => m.NotAutherizedComponent)
+  },
+
+  {
+    path : 'not-found',
+    loadComponent: () => import('./stand-alone-components/not-found/not-found.component').then(m => m.NotFoundComponent)
+  },
+
+  { path: '**', redirectTo: '/not-found' }
 ];
 
 @NgModule({
