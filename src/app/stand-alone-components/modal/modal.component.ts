@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDrawerPlacement } from 'ng-zorro-antd/drawer';
-import { modalProps, ModalService } from '../../core/services/modal/modal.service';
+import { drawerProps, ModalService } from '../../core/services/modal/modal.service';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
@@ -25,10 +25,13 @@ export class ModalComponent implements OnInit , OnDestroy {
   constructor(private modalService : ModalService){}
    ngOnInit(): void {
     //----------------- FIRE MODAL REAL TIME LISTENING TO BEHAVIOUR SUBJECT -----------------
-    this.modalService.dataSubject$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data : modalProps) => {
+    this.modalService.drawerListener$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data : drawerProps) => {
+     // debugger
+     // console.log(data)
       this.visible = data.visible;
       this.placement = data.placement;
       this.modalTitle = data.title
+
     })
    }
 

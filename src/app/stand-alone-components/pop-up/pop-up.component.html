@@ -1,0 +1,8 @@
+<nz-modal [(nzVisible)]="visible">
+    <!-- here we gonna put the dynamic component -->
+    <ng-container *nzModalContent>
+        <ng-content select="[content]">
+
+        </ng-content>
+    </ng-container>
+</nz-modal>

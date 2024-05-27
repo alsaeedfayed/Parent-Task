@@ -1,13 +1,54 @@
 @import '../../../../../assets/scss/abstract/mixins';
+@import '../../../../../assets/scss/abstract/vairables';
+
+
 
 .login-container {
-  height: 50vh;
   @include CenterItemVerticalAndHorizontal;
-  .login-form {
-    min-width: 40rem;
-    &__button {
-      width: 100%;
-      margin-bottom: 1.6rem;
+}
+
+
+.login-card{
+  display: flex;
+  margin-top: 3rem;
+  @include Card(76.7rem,56.7rem);
+
+  &__image{
+
+  }
+
+  &__form{
+    width: 100%;
+    padding: 0 1.5rem;
+    margin-top: 13.5rem;
+    color: $color-text;
+
+    &--header{
+      font-size: 2.5rem;
+      color: $color-text;
+    }
+
+    &--hint{
+      font-size: 1.5rem;
+      a{
+        color: $color-primary;
+      }
+    }
+    label{
+      font-size: 1.4rem;
+      color: $color-text;
+      margin-bottom: .5rem;
+      text-transform: capitalize;
+
+    }
+
+    .form-footer{
+      @include CenterItemVerticalAndHorizontal;
+      justify-content: space-between;
+
+      .forget-password{
+        color: $color-primary;
+      }
     }
   }
 }

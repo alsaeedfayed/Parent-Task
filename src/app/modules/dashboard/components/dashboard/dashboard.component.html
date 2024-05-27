@@ -1,0 +1,141 @@
+<div class="container">
+  <div class="dashboard">
+    <!---------------------- DASHBOAD HEADER ------------------------->
+    <header class="dashboard__header">
+      <div class="row">
+        <h1>users list</h1>
+        <button
+          (click)="openAddUserModal()"
+          class="btn-filled-main btn-new-user"
+        >
+          <span nz-icon nzType="plus"></span> new user
+        </button>
+      </div>
+    </header>
+
+    <!----------------------- LIST OF USERS --------------------------->
+    <div class="dashboard__body">
+      <div class="card">
+        <ul class="card_list-users">
+          <li *ngFor="let user of users" class="card__list-users--user">
+            <!----------- USER INFO ------------------>
+            <div class="user-info">
+              <img [src]="user.avatar" alt="user image" />
+              <span>{{ user.first_name }} {{ user.last_name }}</span>
+            </div>
+
+            <!----------- USER ACTIONS ------------------>
+            <div class="user-actions">
+              <!-- EDIT -->
+              <span (click)="openEditUserModal(user)" class="user-actions__edit"
+                ><i nz-icon nzType="edit" nzTheme="outline"></i
+              ></span>
+              <!-- DELETE -->
+              <span
+                (click)="showDeleteConfirm(user)"
+                class="user-actions__delete"
+                ><i nz-icon nzType="delete" nzTheme="outline"></i
+              ></span>
+              <!-- OPEN SINGLE USER -->
+              <span
+                (click)="openSingleUserModal(user)"
+                class="user-actions__details"
+                ><i nz-icon nzType="right" nzTheme="outline"></i
+              ></span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--------------- SIDE DRAWER  --------------------->
+<app-modal class="modal">
+  <div nzDrawerContent>
+    <!-- The dynamic component for the modal is here  -->
+    <div class="modal__header">
+      <span (click)="close()">X</span>
+    </div>
+
+    <div class="modal__body">
+      <app-singleuser
+        [singleUser]="selectedUser"
+        (deleteAction)="showDeleteConfirm($event)"
+        (editAction)="openEditUserModal($event)"
+      ></app-singleuser>
+    </div>
+  </div>
+</app-modal>
+
+<!----------------- POP UP FOR EDIT AND ADD USER ------------------------->
+<app-pop-up>
+  <div class="pop-up" content>
+    <!-- USER IMAGE IN CASE EDIT OR UPLOAD IMAGE IN CASE ADD -->
+    <img
+      *ngIf="isEditMode; else addUserImage"
+      class="pop-up__image"
+      [src]="selectedUser?.avatar"
+      alt="user image"
+    />
+    <ng-template #addUserImage></ng-template>
+
+    <div class="pop-up__body">
+      <!-------------- USER FORM  --------------->
+      <form
+        nz-form
+        [formGroup]="userForm"
+        class="login-form"
+        (ngSubmit)="submitForm()"
+      >
+        <!-- FIRST NAME FORM CONTROL -->
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your first name!">
+            <input
+              type="text"
+              nz-input
+              formControlName="first_name"
+              placeholder="first name"
+            />
+          </nz-form-control>
+        </nz-form-item>
+        <!-- LAST NAME FORM CONTROL -->
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your last name!">
+            <input
+              type="text"
+              nz-input
+              formControlName="last_name"
+              placeholder="last name"
+            />
+          </nz-form-control>
+        </nz-form-item>
+        <!-- EMAIL FORM CONTROL -->
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input valid email!">
+            <input
+              type="email"
+              nz-input
+              formControlName="email"
+              placeholder="email"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+    <!-------------- BUTTONS CLOSE AND EDIT OR ADD --------------->
+    <div class="pop-up__footer">
+      <button (click)="closePopUp()" class="btn-outline-main">Cancel</button>
+      <button
+        (click)="editUser()"
+        *ngIf="isEditMode; else addBtn"
+        class="btn-filled-main"
+      >
+        Submit
+      </button>
+      <ng-template #addBtn>
+        <button (click)="addUser()" class="btn-filled-main">Add</button>
+      </ng-template>
+    </div>
+  </div>
+</app-pop-up>

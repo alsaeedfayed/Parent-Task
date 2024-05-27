@@ -1,0 +1,15 @@
+<div class="user">
+  <div class="user__info">
+    <img [src]="user?.avatar" alt="user iamge" />
+    <p>{{ user?.first_name }} {{ user?.last_name }}</p>
+  </div>
+
+  <div class="user__actions">
+    <button (click)="editUser(user)" class="btn-filled-main">
+      <i nz-icon nzType="edit" nzTheme="outline"></i> Edit
+    </button>
+    <button (click)="deleteUser(user)" class="btn-outline-main">
+      <i nz-icon nzType="delete" nzTheme="outline"></i> Delete
+    </button>
+  </div>
+</div>

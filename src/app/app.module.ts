@@ -11,11 +11,13 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import { NgOptimizedImage } from '@angular/common'
+import { HeaderComponent } from './stand-alone-components/header/header.component';
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -23,6 +25,7 @@ registerLocaleData(en);
     FormsModule,
     CommonModule,
     NgOptimizedImage,
+    HeaderComponent
 
   ],
   providers: [

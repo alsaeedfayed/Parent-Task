@@ -24,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    canActivate : [authenticatedGuard],
+   // canActivate : [authenticatedGuard],
     loadChildren: () => import('./modules/list-users/list-users.module').then(m => m.ListUsersModule),
 
   },
@@ -34,6 +34,12 @@ const routes: Routes = [
     canActivate : [authenticatedGuard],
     loadChildren: () => import('./modules/user-details/user-details.module').then(m => m.UserDetailsModule),
 
+  },
+
+  {
+    path : 'dashboard',
+    //canActivate : [authenticatedGuard],
+    loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
   },
 
   {

@@ -1,0 +1,29 @@
+@import "../../../../../assets/scss/abstract/mixins";
+@import "../../../../../assets/scss/abstract/vairables";
+
+
+.user {
+
+  img {
+    height: 12.7rem;
+    border-radius: 50%;
+    margin-bottom: 1.4rem;
+  }
+
+  p {
+    font-size: 2.5rem;
+    text-transform: capitalize;
+    color:  $color-text;
+    margin-bottom: 2.5rem;
+  }
+
+  &__info{
+    @include CenterItemVerticalAndHorizontal;
+    flex-direction: column
+  }
+
+  &__actions {
+    @include CenterItemVerticalAndHorizontal;
+    gap: 1.2rem;
+  }
+}

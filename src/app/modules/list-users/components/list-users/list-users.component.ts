@@ -56,7 +56,7 @@ export class ListUsersComponent implements OnInit {
 
   //TODO Provide end point for adding user internal.
   openAddUserModal() {
-    this.modalService.openModal('right', 'Add New User')
+    this.modalService.openDrawer('right', 'Add New User')
   }
   addUser() {
 
@@ -67,7 +67,7 @@ export class ListUsersComponent implements OnInit {
   openEditUserModal(user: User) {
     this.isEditMode = true;
     this.userToBeEdited = user;
-    this.modalService.openModal('right', `Edit user ${user.first_name}`)
+    this.modalService.openDrawer('right', `Edit user ${user.first_name}`)
   }
   editUser() {
     this.overlayService.show()
@@ -93,7 +93,7 @@ export class ListUsersComponent implements OnInit {
 
   //-------------------- CLOSE THE MODAL ---------------
   close() {
-    this.modalService.closeModal('right', '');
+    this.modalService.closeDrawer('right', '');
     this.isEditMode = false;
     this.userToBeEdited = null;
   }
