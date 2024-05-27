@@ -3,7 +3,7 @@ import { Config } from '../../../../core/configs/apis.config';
 import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { HttpService } from '../../../../core/services/http-handler/http-handler.service';
-import { authService } from '../../../../core/services/user-service/auth-service.service';
+import { authService } from '../../../../core/services/auth/auth-service.service';
 import { OverlayLoaderService } from '../../../../core/services/overlay-loader/overlay-loader.service';
 import { Router } from '@angular/router';
 

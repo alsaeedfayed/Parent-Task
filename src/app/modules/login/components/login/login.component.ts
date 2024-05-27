@@ -3,7 +3,7 @@ import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@ang
 import { HttpService } from '../../../../core/services/http-handler/http-handler.service';
 import { Config } from '../../../../core/configs/apis.config';
 import { finalize } from 'rxjs';
-import { authService } from '../../../../core/services/user-service/auth-service.service';
+import { authService } from '../../../../core/services/auth/auth-service.service';
 import { Router } from '@angular/router';
 import { OverlayLoaderService } from '../../../../core/services/overlay-loader/overlay-loader.service';
 

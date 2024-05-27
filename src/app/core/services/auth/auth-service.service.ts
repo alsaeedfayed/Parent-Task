@@ -25,7 +25,7 @@ export class authService {
 
   }
 
-  token: any;
+  token: any ;
   current_user!: User;
 
   setToken(token: any): void {
@@ -39,11 +39,11 @@ export class authService {
   }
 
   setCurrentUser(token: any): void {
-    this.current_user.id = token.id;
-    this.current_user.email = token.email;
-    this.current_user.first_name = token.first_name;
-    this.current_user.last_name = token.last_name;
-    this.current_user.avatar = token.avatar;
+    // this.current_user.id = token.id;
+    // this.current_user.email = token.email;
+    // this.current_user.first_name = token.first_name;
+    // this.current_user.last_name = token.last_name;
+    // this.current_user.avatar = token.avatar;
   }
 
   save(): boolean {
