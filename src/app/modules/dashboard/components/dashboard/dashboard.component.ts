@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpService } from '../../../../core/services/http-handler/http-handler.service';
 import { User } from '../../../../core/models/user.model';
 import { finalize, map } from 'rxjs';
@@ -10,6 +10,7 @@ import { OverlayLoaderService } from '../../../../core/services/overlay-loader/o
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Action } from '../../models/user-actions.model';
 import { DashboardPropertiesAndServerActions } from '../../classes/dashboardPropertiesAndServerActions.class';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -17,7 +18,7 @@ import { DashboardPropertiesAndServerActions } from '../../classes/dashboardProp
 })
 export class DashboardComponent extends DashboardPropertiesAndServerActions implements OnInit {
 
-  constructor(http: HttpService, modalService: ModalService, overlayService: OverlayLoaderService, notificationService: NotificationsService, modal: NzModalService, fb: NonNullableFormBuilder) {
+  constructor(http: HttpService, modalService: ModalService, overlayService: OverlayLoaderService, notificationService: NotificationsService, modal: NzModalService, fb: NonNullableFormBuilder ) {
     super(fb, http, overlayService, notificationService, modal, modalService);
   }
 
@@ -148,4 +149,16 @@ onFileSelected(event : any) {
   this.selectedUserImage = event.target.files[0];
   this.objectUrl = window.URL.createObjectURL(this.selectedUserImage);
 }
+
+@ViewChild('scrollableDiv') scrollableDiv!: ElementRef;
+
+onScroll(){
+  const element = this.scrollableDiv.nativeElement;
+  //console.log(element)
+  if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+  // console.log('hiole')
+  this.getAllUsers()
+  }
+}
+
 }

@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { DashboardHeaderComponent } from './components/dashboard-header/dashboard-header.component';
 import { DashboardUserRowComponent } from './components/dashboard-user-row/dashboard-user-row.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { DashboardUserRowComponent } from './components/dashboard-user-row/dashb
     PopUpComponent,
     NzFormModule,
     ReactiveFormsModule,
-    NzInputModule
+    NzInputModule,
+    InfiniteScrollModule
   ]
 })
 export class DashboardModule { }

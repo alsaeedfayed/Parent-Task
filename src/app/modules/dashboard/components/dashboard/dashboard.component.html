@@ -7,15 +7,28 @@
     ></app-dashboard-header>
     <!----------------------- LIST OF USERS --------------------------->
     <div class="dashboard__body">
-      <div class="card">
+      <div class="card" #scrollableDiv  style="height: 80vh; overflow-y: scroll;" (scroll)="onScroll()">
         <ul class="card_list-users">
-          <app-dashboard-user-row
-            class="user-row"
-            *ngFor="let user of users; let i = index"
-            [user]="user"
-            (ActionType)="doUserAction($event)"
-            (selectedUser)="openSingleUserModal($event)"
-          ></app-dashboard-user-row>
+
+            <app-dashboard-user-row
+              class="user-row"
+              *ngFor="let user of users; let i = index"
+              [user]="user"
+              (ActionType)="doUserAction($event)"
+              (selectedUser)="openSingleUserModal($event)"
+            ></app-dashboard-user-row>
+            <div
+
+            infinite-scroll
+            [infiniteScrollDistance]="1"
+            [infiniteScrollUpDistance]="2"
+            [infiniteScrollThrottle]="300"
+            [scrollWindow]="false"
+
+          >
+          </div>
+
+          <div *ngIf="loading">Loading...</div>
         </ul>
       </div>
     </div>
@@ -63,9 +76,10 @@
           ></label>
         </div>
         <ng-template #chooseImage>
-
           <div class="choose-image">
-            <label for="fileInput"> <span nz-icon nzType="camera" nzTheme="outline"></span></label>
+            <label for="fileInput">
+              <span nz-icon nzType="camera" nzTheme="outline"></span
+            ></label>
           </div>
         </ng-template>
       </ng-template>

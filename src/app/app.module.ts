@@ -12,6 +12,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideHttpClient } from '@angular/common/http';
 import { NgOptimizedImage } from '@angular/common'
 import { HeaderComponent } from './stand-alone-components/header/header.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 registerLocaleData(en);
 
 @NgModule({
@@ -25,9 +27,12 @@ registerLocaleData(en);
     FormsModule,
     CommonModule,
     NgOptimizedImage,
-    HeaderComponent
+    HeaderComponent,
+    InfiniteScrollModule
+
 
   ],
+  exports : [InfiniteScrollModule],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     provideAnimationsAsync(),

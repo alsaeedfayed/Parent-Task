@@ -16,7 +16,12 @@ export class DashboardPropertiesAndServerActions {
   protected isEditMode: boolean = false;
   protected userToBeEdited!: User | null;
   //userForm!: FormGroup;
-  protected users!: User[];
+  protected users: User[] = [];
+  protected page: number = 1;
+  protected pageSize: number = 9;
+  protected loading: boolean = false;
+  hasMore = true;
+
   protected selectedUser!: User | null;
   protected selectedUserImage! : File;
   protected   objectUrl!: string;
@@ -38,8 +43,10 @@ export class DashboardPropertiesAndServerActions {
 
   //------------------GET ALL USERS -------------------------
   getAllUsers(): void {
+    const queryParams = {page : this.page, per_page: this.pageSize}
+    this.loading = true;
     this.overlayService.show()
-    this.http.get<User[]>('/users').pipe(
+    this.http.get<User[]>('/users' , queryParams ).pipe(
       finalize(() => {
         this.overlayService.hide();
       }),
@@ -51,9 +58,14 @@ export class DashboardPropertiesAndServerActions {
 
     ).subscribe((res: User[]) => {
       // console.log(res)
-      this.users = res;
+      this.users = [...this.users , ...res];
+      this.overlayService.hide();
+      this.loading = false;
+      this.page++
     })
   }
+
+
 
   //------------------SUBMIT NEW USER ------------------------
   protected submitNewUser(closeModal: () => void, onSuccess: () => void, onError: () => void): void {
