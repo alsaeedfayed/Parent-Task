@@ -45,7 +45,7 @@ export class LoginComponent {
         next: (res: any) => {
           this.userService.setToken(res.token)
           //navigate to desired page
-          //this.router.navigate(['/xxxxxxxx']);
+          this.router.navigate(['/dashboard']);
 
 
         },

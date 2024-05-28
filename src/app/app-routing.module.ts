@@ -29,12 +29,12 @@ const routes: Routes = [
 
   },
 
-  {
-    path: 'user/:id',
-    canActivate : [authenticatedGuard],
-    loadChildren: () => import('./modules/user-details/user-details.module').then(m => m.UserDetailsModule),
+  // {
+  //   path: 'user/:id',
+  //   canActivate : [authenticatedGuard],
+  //   loadChildren: () => import('./modules/user-details/user-details.module').then(m => m.UserDetailsModule),
 
-  },
+  // },
 
   {
     path : 'dashboard',

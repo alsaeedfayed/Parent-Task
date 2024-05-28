@@ -150,8 +150,8 @@ onFileSelected(event : any) {
   this.objectUrl = window.URL.createObjectURL(this.selectedUserImage);
 }
 
+//----------------paginate on scrolling ---------------------------
 @ViewChild('scrollableDiv') scrollableDiv!: ElementRef;
-
 onScroll(){
   const element = this.scrollableDiv.nativeElement;
   //console.log(element)
