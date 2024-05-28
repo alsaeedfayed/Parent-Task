@@ -87,3 +87,17 @@
 //   height: 20rem;
 //   overflow-y: scroll;
 // }
+
+::ng-deep{
+  .ant-spin {
+    .ant-spin-dot-item{
+
+      background-color: $color-primary !important;
+      font-size: 2rem;
+      padding: 1.3rem;
+      margin: 1.2rem;
+      z-index: 999999999;
+      position: absolute;
+    }
+}
+}
