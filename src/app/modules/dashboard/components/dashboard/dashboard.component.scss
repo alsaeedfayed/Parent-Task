@@ -22,22 +22,63 @@
 .pop-up {
   position: relative;
 
-  &__image {
+  &__header {
     height: 10.6rem;
     width: 10.6rem;
     border-radius: 50%;
     position: absolute;
     top: -13rem;
     left: 38%;
+    .user-image {
+      border-radius: 50%;
+    }
+
+    .user-selected-image {
+      position: relative;
+      img {
+        height: 10.6rem;
+        width: 10.6rem;
+        border-radius: 50%;
+      }
+
+      span {
+        position: absolute;
+        top: 45%;
+        font-size: 2rem;
+        right: -2rem;
+        cursor: pointer;
+        color: $color-primary;
+      }
+    }
+
+    .choose-image {
+      @include CenterItemVerticalAndHorizontal;
+      background-color: #7f8c8d;
+      height: 10.6rem;
+      width: 10.6rem;
+      border-radius: 50%;
+      position: relative;
+      span{
+        font-size: 2.5rem;
+        color: $color-white;
+        cursor: pointer;
+      }
+
+
+    }
   }
 
   &__body {
-    margin-top: 4rem;
+    margin-top: 5rem;
   }
 
   &__footer {
     @include CenterItemVerticalAndHorizontal;
     gap: 1.3rem;
     margin-top: 2.5rem;
+  }
+
+  input[type="file"] {
+    display: none;
   }
 }

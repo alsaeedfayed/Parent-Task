@@ -44,13 +44,32 @@
 <app-pop-up>
   <div class="pop-up" content>
     <!-- USER IMAGE IN CASE EDIT OR UPLOAD IMAGE IN CASE ADD -->
-    <img
-      *ngIf="isEditMode; else addUserImage"
-      class="pop-up__image"
-      [src]="selectedUser?.avatar"
-      alt="user image"
-    />
-    <ng-template #addUserImage></ng-template>
+    <div class="pop-up__header">
+      <img
+        *ngIf="isEditMode; else addUserImage"
+        class="user-image"
+        [src]="selectedUser?.avatar"
+        alt="user image"
+      />
+      <ng-template #addUserImage>
+        <input id="fileInput" type="file" (change)="onFileSelected($event)" />
+        <div
+          class="user-selected-image"
+          *ngIf="selectedUserImage && objectUrl; else chooseImage"
+        >
+          <img [src]="objectUrl" alt="Preview" />
+          <label for="fileInput"
+            ><span nz-icon nzType="edit" nzTheme="outline"></span
+          ></label>
+        </div>
+        <ng-template #chooseImage>
+
+          <div class="choose-image">
+            <label for="fileInput"> <span nz-icon nzType="camera" nzTheme="outline"></span></label>
+          </div>
+        </ng-template>
+      </ng-template>
+    </div>
 
     <div class="pop-up__body">
       <!-------------- USER FORM  --------------->

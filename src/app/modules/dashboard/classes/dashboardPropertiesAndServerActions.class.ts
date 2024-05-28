@@ -18,6 +18,8 @@ export class DashboardPropertiesAndServerActions {
   //userForm!: FormGroup;
   protected users!: User[];
   protected selectedUser!: User | null;
+  protected selectedUserImage! : File;
+  protected   objectUrl!: string;
 
   protected userForm: FormGroup<{
     first_name: FormControl<string>;

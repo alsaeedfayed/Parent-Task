@@ -140,6 +140,12 @@ closePopUp = (): void => {
   this.isEditMode = false;
   this.selectedUser = null;
   this.userForm.reset();
+  this.objectUrl = '';
 }
 
+//UPLOAD IMAGE
+onFileSelected(event : any) {
+  this.selectedUserImage = event.target.files[0];
+  this.objectUrl = window.URL.createObjectURL(this.selectedUserImage);
+}
 }
