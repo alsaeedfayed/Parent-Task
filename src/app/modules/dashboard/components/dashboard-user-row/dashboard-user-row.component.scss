@@ -2,7 +2,7 @@
 @import "../../../../../assets/scss/abstract/vairables";
 .card__list-users {
   &--user {
-
+    cursor: pointer;
     @include CenterItemVerticalAndHorizontal;
     justify-content: space-between;
     height: 8.5rem;
@@ -41,8 +41,21 @@
       }
     }
 
-
       border-bottom: 1px solid #DEDEDE;
 
+  }
+
+
+}
+
+.selected{
+  background-color: $color-primary;
+  padding: 0 .5rem;
+  .user-info > span{
+    color: $color-white;
+  }
+  .user-actions > span{
+    color: $color-white;
+    border: 1px solid $color-white;
   }
 }

@@ -20,7 +20,7 @@ import { DashboardUserRowComponent } from './components/dashboard-user-row/dashb
     DashboardComponent,
     SingleuserComponent,
     DashboardHeaderComponent,
-    DashboardUserRowComponent
+    DashboardUserRowComponent,
   ],
   imports: [
     CommonModule,

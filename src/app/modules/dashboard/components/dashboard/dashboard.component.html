@@ -14,6 +14,7 @@
             *ngFor="let user of users; let i = index"
             [user]="user"
             (ActionType)="doUserAction($event)"
+            (selectedUser)="openSingleUserModal($event)"
           ></app-dashboard-user-row>
         </ul>
       </div>

@@ -1,4 +1,4 @@
-<li  class="card__list-users--user">
+<li  (click)="selectRow(user)" class="card__list-users--user" [id]="'user-'+user?.id">
   <!----------- USER INFO ------------------>
   <div class="user-info">
     <img [src]="user.avatar" alt="user image" />
@@ -8,12 +8,12 @@
   <!----------- USER ACTIONS ------------------>
   <div class="user-actions">
     <!-- EDIT -->
-    <span (click)="openEditUserModal(user)" class="user-actions__edit"
+    <span (click)="openEditUserModal(user , $event)" class="user-actions__edit"
       ><i nz-icon nzType="edit" nzTheme="outline"></i
     ></span>
     <!-- DELETE -->
     <span
-      (click)="showDeleteConfirm(user)"
+      (click)="showDeleteConfirm(user , $event)"
       class="user-actions__delete"
       ><i nz-icon nzType="delete" nzTheme="outline"></i
     ></span>
