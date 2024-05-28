@@ -11,12 +11,16 @@ import { PopUpComponent } from '../../stand-alone-components/pop-up/pop-up.compo
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { DashboardHeaderComponent } from './components/dashboard-header/dashboard-header.component';
+import { DashboardUserRowComponent } from './components/dashboard-user-row/dashboard-user-row.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    SingleuserComponent
+    SingleuserComponent,
+    DashboardHeaderComponent,
+    DashboardUserRowComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,48 @@
+@import "../../../../../assets/scss/abstract/mixins";
+@import "../../../../../assets/scss/abstract/vairables";
+.card__list-users {
+  &--user {
+
+    @include CenterItemVerticalAndHorizontal;
+    justify-content: space-between;
+    height: 8.5rem;
+    .user-info {
+      img{
+        height: 5.5rem;
+        border-radius: 50%;
+        margin-right: 1rem;
+      }
+
+      span{
+        font-size: 1.5rem;
+        color: $color-text;
+        text-transform: capitalize
+      }
+    }
+
+    .user-actions {
+      @include CenterItemVerticalAndHorizontal;
+
+      span {
+        @include CenterItemVerticalAndHorizontal;
+        color: $color-primary;
+        cursor: pointer;
+        width: 3rem;
+        height: 3rem;
+        border: 1px solid $color-primary;
+        border-radius: 0.3rem;
+      }
+
+      &__delete {
+        margin-left: 1.4rem;
+      }
+      &__details {
+        margin-left: 5rem;
+      }
+    }
+
+
+      border-bottom: 1px solid #DEDEDE;
+
+  }
+}

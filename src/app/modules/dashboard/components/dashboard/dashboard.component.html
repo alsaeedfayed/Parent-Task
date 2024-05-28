@@ -1,49 +1,20 @@
 <div class="container">
+  <!-------------- DSAHBOARD ----------------------->
   <div class="dashboard">
     <!---------------------- DASHBOAD HEADER ------------------------->
-    <header class="dashboard__header">
-      <div class="row">
-        <h1>users list</h1>
-        <button
-          (click)="openAddUserModal()"
-          class="btn-filled-main btn-new-user"
-        >
-          <span nz-icon nzType="plus"></span> new user
-        </button>
-      </div>
-    </header>
-
+    <app-dashboard-header
+      (openAddUser)="openAddUserModal()"
+    ></app-dashboard-header>
     <!----------------------- LIST OF USERS --------------------------->
     <div class="dashboard__body">
       <div class="card">
         <ul class="card_list-users">
-          <li *ngFor="let user of users" class="card__list-users--user">
-            <!----------- USER INFO ------------------>
-            <div class="user-info">
-              <img [src]="user.avatar" alt="user image" />
-              <span>{{ user.first_name }} {{ user.last_name }}</span>
-            </div>
-
-            <!----------- USER ACTIONS ------------------>
-            <div class="user-actions">
-              <!-- EDIT -->
-              <span (click)="openEditUserModal(user)" class="user-actions__edit"
-                ><i nz-icon nzType="edit" nzTheme="outline"></i
-              ></span>
-              <!-- DELETE -->
-              <span
-                (click)="showDeleteConfirm(user)"
-                class="user-actions__delete"
-                ><i nz-icon nzType="delete" nzTheme="outline"></i
-              ></span>
-              <!-- OPEN SINGLE USER -->
-              <span
-                (click)="openSingleUserModal(user)"
-                class="user-actions__details"
-                ><i nz-icon nzType="right" nzTheme="outline"></i
-              ></span>
-            </div>
-          </li>
+          <app-dashboard-user-row
+            class="user-row"
+            *ngFor="let user of users; let i = index"
+            [user]="user"
+            (ActionType)="doUserAction($event)"
+          ></app-dashboard-user-row>
         </ul>
       </div>
     </div>
@@ -55,7 +26,7 @@
   <div nzDrawerContent>
     <!-- The dynamic component for the modal is here  -->
     <div class="modal__header">
-      <span (click)="close()">X</span>
+      <span (click)="closeDrawer()">X</span>
     </div>
 
     <div class="modal__body">
@@ -82,12 +53,7 @@
 
     <div class="pop-up__body">
       <!-------------- USER FORM  --------------->
-      <form
-        nz-form
-        [formGroup]="userForm"
-        class="login-form"
-        (ngSubmit)="submitForm()"
-      >
+      <form nz-form [formGroup]="userForm" class="login-form">
         <!-- FIRST NAME FORM CONTROL -->
         <nz-form-item>
           <nz-form-control nzErrorTip="Please input your first name!">
@@ -127,14 +93,14 @@
     <div class="pop-up__footer">
       <button (click)="closePopUp()" class="btn-outline-main">Cancel</button>
       <button
-        (click)="editUser()"
+        (click)="onEditUser()"
         *ngIf="isEditMode; else addBtn"
         class="btn-filled-main"
       >
         Submit
       </button>
       <ng-template #addBtn>
-        <button (click)="addUser()" class="btn-filled-main">Add</button>
+        <button (click)="onAddUser()" class="btn-filled-main">Add</button>
       </ng-template>
     </div>
   </div>

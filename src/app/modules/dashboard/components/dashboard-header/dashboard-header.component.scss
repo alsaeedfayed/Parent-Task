@@ -1,0 +1,26 @@
+@import "../../../../../assets/scss/abstract/mixins";
+@import "../../../../../assets/scss/abstract/vairables";
+
+.dashboard__header {
+  padding: 1.5rem 13.5rem;
+  background-color: #dedede;
+
+  .row {
+    @include CenterItemVerticalAndHorizontal;
+    justify-content: space-between;
+
+    h1 {
+      text-transform: capitalize;
+      color: $color-text;
+      font-size: 3rem;
+    }
+
+    button {
+      width: 12rem;
+      text-transform: capitalize;
+      span {
+        color: $color-white;
+      }
+    }
+  }
+}

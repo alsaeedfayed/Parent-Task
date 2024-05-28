@@ -1,0 +1,27 @@
+<li  class="card__list-users--user">
+  <!----------- USER INFO ------------------>
+  <div class="user-info">
+    <img [src]="user.avatar" alt="user image" />
+    <span>{{ user.first_name }} {{ user.last_name }}</span>
+  </div>
+
+  <!----------- USER ACTIONS ------------------>
+  <div class="user-actions">
+    <!-- EDIT -->
+    <span (click)="openEditUserModal(user)" class="user-actions__edit"
+      ><i nz-icon nzType="edit" nzTheme="outline"></i
+    ></span>
+    <!-- DELETE -->
+    <span
+      (click)="showDeleteConfirm(user)"
+      class="user-actions__delete"
+      ><i nz-icon nzType="delete" nzTheme="outline"></i
+    ></span>
+    <!-- OPEN SINGLE USER -->
+    <span
+      (click)="openSingleUserModal(user)"
+      class="user-actions__details"
+      ><i nz-icon nzType="right" nzTheme="outline"></i
+    ></span>
+  </div>
+</li>

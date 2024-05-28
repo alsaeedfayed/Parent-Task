@@ -8,202 +8,138 @@ import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@ang
 import { NotificationsService } from '../../../../core/services/notifications/notifications.service';
 import { OverlayLoaderService } from '../../../../core/services/overlay-loader/overlay-loader.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { Action } from '../../models/user-actions.model';
+import { DashboardPropertiesAndServerActions } from '../../classes/dashboardPropertiesAndServerActions.class';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent extends DashboardPropertiesAndServerActions implements OnInit {
 
-  //-------------------COMPONENT PROPERTIES----------------
-  isEditMode: boolean = false;
-  userToBeEdited!: User | null;
-  //userForm!: FormGroup;
-  users!: User[];
-  selectedUser! : User | null;
-
-  userForm: FormGroup<{
-    first_name: FormControl<string>;
-    last_name: FormControl<string>;
-    email: FormControl<string>;
-  }> = this.fb.group({
-    first_name: ['', [Validators.required]],
-    last_name: ['', [Validators.required]],
-    email: ['', [Validators.required , Validators.email]],
-
-  });
-
-  submitForm(){}
-
-  constructor(private http: HttpService, private router: Router, private modalService: ModalService, private overlayService: OverlayLoaderService, private notificationService: NotificationsService , private modal: NzModalService, private fb: NonNullableFormBuilder) { }
+  constructor(http: HttpService, modalService: ModalService, overlayService: OverlayLoaderService, notificationService: NotificationsService, modal: NzModalService, fb: NonNullableFormBuilder) {
+    super(fb, http, overlayService, notificationService, modal, modalService);
+  }
 
   ngOnInit(): void {
     this.getAllUsers()
   }
 
 
-  //------------------GET ALL USERS -------------------------
-  getAllUsers(): void {
-    this.overlayService.show()
-    this.http.get<User[]>('/users').pipe(
-      finalize(() => {
-        this.overlayService.hide();
-      }),
-      map(
-        (res: any) => {
-        //  console.log(res)
-          return res?.data;
-        })
-
-    ).subscribe((res: User[]) => {
-      // console.log(res)
-      this.users = res;
-    })
+  doUserAction(event: { action: Action, user: User }): void {
+    switch (event.action) {
+      case 'edit':
+        this.openEditUserModal(event.user)
+        break;
+      case 'delete':
+        this.showDeleteConfirm(event.user)
+        break;
+      case 'details':
+        this.openSingleUserModal(event.user)
+        break;
+      default:
+        break;
+    }
   }
 
-  //-----------------ROUTE TO SPECIFIC USER-------------------
-  goToUser(id: number): void {
-    this.router.navigate([`/user/${id}`])
-  }
-
-
-  //TODO Provide end point for adding user internal.
+  //------------------------ ADD NEW USER------------------------
   openAddUserModal() {
     this.modalService.openPopUp();
   }
-
-  addUser() {
-
-    if(this.userForm.invalid){
-      Object.values(this.userForm.controls).forEach(control => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
-
-      return
+  onAddUser(): void {
+    if (this.userForm.invalid) {
+      this.validateUserForm();
     }
-
     else {
-      this.overlayService.show()
-      this.http.put(`/register`, this.userForm.value).pipe(finalize(
-        () => {
-          this.overlayService.hide();
-          this.modalService.closePopUp();
-          this.userForm.reset()
-        }
-      )).subscribe(
-        {
-          next: (data) => {
-            this.close();
-            this.notificationService.createBasicNotification('success', 'Success', 'user added successfully')
-            this.getAllUsers();
-          },
-          error: (err) => { },
+      this.submitNewUser(this.closePopUp, this.onSuccessAddUser, this.onErrorAddUser)
 
-        }
-      )
     }
-
   }
 
-
-  openSingleUserModal(user : User) {
-    this.selectedUser = user;
-    this.modalService.openDrawer('right', '')
+  onSuccessAddUser = (): void => {
+    this.notificationService.createBasicNotification('success', 'Success', 'user added successfully');
+    //this.closePopUp()
+    this.getAllUsers();
   }
 
+  onErrorAddUser = (): void => {
+    //this.closePopUp(); //already implemented in finalize , we can have some other logic
+  }
 
   //---------------------EDIT USER ----------------------
   openEditUserModal(user: User) {
     this.isEditMode = true;
     this.selectedUser = user;
     this.userForm.patchValue(user)
-   // this.modalService.openDrawer('right', `Edit user ${user.first_name}`)
-   this.modalService.openPopUp();
+    this.modalService.openPopUp();
   }
-  editUser() {
-
-    if(this.userForm.invalid){
-      Object.values(this.userForm.controls).forEach(control => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
-
-      return
+  onEditUser() {
+    if (this.userForm.invalid) {
+      this.validateUserForm()
     }
-
     else {
-      this.overlayService.show()
-      this.http.put(`/users/${this.selectedUser?.id}`, this.userForm.value).pipe(finalize(
-        () => {
-          this.overlayService.hide();
-          this.modalService.closePopUp();
-          this.userForm.reset()
-        }
-      )).subscribe(
-        {
-          next: (data) => {
-            this.close();
-            this.notificationService.createBasicNotification('success', 'Success', 'user has been updated')
-            this.getAllUsers();
-          },
-          error: (err) => { },
-
-        }
-      )
+      this.submitEditUser(this.closePopUp, this.onSuccessEditUser, this.onErrorEditser);
     }
-
-  }
-  userFormListener(form: FormGroup) {
-    this.userForm = form
   }
 
-  //-------------------- CLOSE THE MODAL ---------------
-  close() {
-    this.modalService.closeDrawer('right', '');
-    this.isEditMode = false;
-    this.userToBeEdited = null;
-    this.selectedUser = null
+  onSuccessEditUser = (): void => {
+    this.notificationService.createBasicNotification('success', 'Success', 'user edited successfully');
+    this.closeDrawer(); //in case i need to close the drawer.
+    this.getAllUsers();
   }
 
-  closePopUp(){
-    this.modalService.closePopUp();
-    this.isEditMode = false;
-    this.selectedUser = null;
-    this.userForm.reset();
-  }
+  onErrorEditser(): void { }
 
   //---------------- DELETE USER ------------------------
-  showDeleteConfirm(user : User): void {
+  showDeleteConfirm(user: User): void {
     this.modal.confirm({
       nzTitle: `Are you sure delete ${user.first_name}`,
-
       nzOkText: 'Yes',
       nzOkType: 'primary',
       nzOkDanger: true,
-      nzOnOk: () => {this.deleteUser(user.id) },
+      nzOnOk: () => { this.submitDeleteUser(user.id , this.onSuccessDeleteUser, this.onErrorDeleteUser) },
       nzCancelText: 'No',
-      nzOnCancel: () => {}
+      nzOnCancel: () => { }
     });
   }
 
-  deleteUser(id : number){
-    this.overlayService.show()
-    this.http.delete(`/users/${id}`).pipe(finalize(() => {
-      this.overlayService.hide();
-      ; this.close()
-      this.getAllUsers();
-      this.notificationService.createBasicNotification('success', 'Success', 'user has been deleted')
-    })).subscribe(
-      {
-        next : (res) => {},
-        error : (err) => {}
-      },
-
-    )
+  onSuccessDeleteUser = () : void => {
+    this.getAllUsers();
+    this.notificationService.createBasicNotification('success', 'Success', 'user has been deleted')
   }
+
+  onErrorDeleteUser = () : void =>  {}
+
+
+  //---------------------------- NON SERVER SIDE ACTIONS -------------------------
+  validateUserForm() {
+  Object.values(this.userForm.controls).forEach(control => {
+    if (control.invalid) {
+      control.markAsDirty();
+      control.updateValueAndValidity({ onlySelf: true });
+    }
+  });
+
+  return
+}
+openSingleUserModal(user: User) {
+  this.selectedUser = user;
+  this.modalService.openDrawer('right', '')
+}
+
+//-------------------- CLOSE THE MODAL ---------------
+closeDrawer() {
+  this.modalService.closeDrawer('right', '');
+  this.isEditMode = false;
+  this.userToBeEdited = null;
+  this.selectedUser = null;
+}
+
+closePopUp = (): void => {
+  this.modalService.closePopUp();
+  this.isEditMode = false;
+  this.selectedUser = null;
+  this.userForm.reset();
+}
+
 }
